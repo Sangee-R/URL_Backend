@@ -72,25 +72,6 @@ app.post("/register", async (req, res) => {
       req.body.password = hash;
       await db.collection("users").insertOne(req.body);
       
-      //  var string = Math.random().toString(36).substr(2, 10);
-      //  let transporter = nodemailer.createTransport({
-      //    host: "smtp.gmail.com",
-      //    port: 587,
-      //    secure: false, // true for 465, false for other ports
-      //    auth: {
-      //      user: process.env.SENDER, // generated ethereal user
-      //      pass: process.env.PASS, // generated ethereal password
-      //    },
-      //  });
-
-      //  // send mail with defined transport object
-      //  let info = await transporter.sendMail({
-      //    from: process.env.SENDER, // sender address
-      //    to: req.body.email, // list of receivers
-      //    subject: "Activate Account ✔", // Subject line
-      //    text: "Hello world?", // plain text body
-      //    html: `<a href="https://url-shrten.herokuapp.com/activate/${req.body.email}/${string}">Click on this link to activate your account</a>`, // html body
-      //  });
        await db
          .collection("users")
          .updateOne({ email: req.body.email }, { $set: { status: true } });
@@ -188,7 +169,7 @@ app.post("/forgot", async (req, res) => {
         to: req.body.email, // list of receivers
         subject: "Reset Password ✔", // Subject line
         text: "Hello world?", // plain text body
-        html: `<a href="https://url-shrten.herokuapp.com/auth/${req.body.email}/${string}">Click on this link </a>`, // html body
+        html: `<a href="https://url-shrten.render.com/auth/${req.body.email}/${string}">Click on this link </a>`, // html body
       });
       await db
         .collection("users")
